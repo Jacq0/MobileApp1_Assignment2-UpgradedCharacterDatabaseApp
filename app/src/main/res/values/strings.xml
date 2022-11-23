@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">MobileAppDev1_Assignment2-CharacterApplication</string>
+    <string name="app_name">Character Database</string>
+    <string name="button_addCharacterList">Add Character</string>
+    <string name="button_addCharacter">Add Character</string>
+    <string name="button_cancelCharacter">Cancel</string>
+    <string name="button_addImage">Add Image</string>
+    <string name="hint_characterName">Character Name</string>
+    <string name="hint_characterDescription">Character Description</string>
 </resources>
