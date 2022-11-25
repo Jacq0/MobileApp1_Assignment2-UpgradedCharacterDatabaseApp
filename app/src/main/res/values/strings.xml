@@ -6,4 +6,8 @@
     <string name="button_addImage">Add Image</string>
     <string name="hint_characterName">Character Name</string>
     <string name="hint_characterDescription">Character Description</string>
+    <string name="hint_originalAppearance">Original Appearance</string>
+    <string name="hint_originalAppearanceYear">Original Appearance Year</string>
+    <string name="button_updateCharacter">Update Character</string>
+    <string name="select_characterImage">Select a Character Image</string>
 </resources>
