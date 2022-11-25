@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
+import org.assignment.characterapplication.databinding.ActivityCharacterBinding
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 import timber.log.Timber.i
@@ -40,7 +41,7 @@ class CharacterActivity: AppCompatActivity()
         {
             edit = true
             character = intent.extras?.getParcelable("character_edit")!!
-            binding.name.setText(character.name)
+            binding.characterName.setText(character.name)
             binding.description.setText(character.description)
             binding.originalAppearance.setText(character.originalAppearance)
             binding.originalAppearanceYear.setText(character.originalAppearanceYear)
@@ -72,7 +73,7 @@ class CharacterActivity: AppCompatActivity()
                     if (result.data != null) {
                         i("Got Result ${result.data!!.data}")
                         character.image = result.data!!.data!!
-                        Picasso.get().load(character.image).into(binding.placemarkImage)
+                        Picasso.get().load(character.image).into(binding.characterImage)
                     }
                 }
                 RESULT_CANCELED -> { } else -> { }

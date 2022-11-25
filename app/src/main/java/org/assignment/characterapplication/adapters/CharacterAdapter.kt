@@ -3,6 +3,7 @@ package org.assignment.characterapplication.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import org.assignment.characterapplication.databinding.CardCharacterBinding
 import org.assignment.characterapplication.models.CharacterModel
 
 interface CharacterListener {

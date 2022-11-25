@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import org.assignment.characterapplication.R
 import org.assignment.characterapplication.adapters.CharacterAdapter
 import org.assignment.characterapplication.adapters.CharacterListener
+import org.assignment.characterapplication.databinding.ActivityCharacterListBinding
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 
@@ -31,7 +32,7 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = CharacterAdapter(app.characters.findAll())
+        binding.recyclerView.adapter = CharacterAdapter(app.characters.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
