@@ -10,4 +10,5 @@
     <string name="hint_originalAppearanceYear">Original Appearance Year</string>
     <string name="button_updateCharacter">Update Character</string>
     <string name="select_characterImage">Select a Character Image</string>
+    <string name="error_fillFields">Please fill all Required Fields</string>
 </resources>

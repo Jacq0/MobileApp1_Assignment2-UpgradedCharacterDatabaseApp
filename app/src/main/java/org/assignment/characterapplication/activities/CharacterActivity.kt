@@ -7,9 +7,11 @@ import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
 import org.assignment.characterapplication.databinding.ActivityCharacterBinding
+import org.assignment.characterapplication.helpers.showImagePicker
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 import timber.log.Timber.i
@@ -44,10 +46,36 @@ class CharacterActivity: AppCompatActivity()
             binding.characterName.setText(character.name)
             binding.description.setText(character.description)
             binding.originalAppearance.setText(character.originalAppearance)
-            binding.originalAppearanceYear.setText(character.originalAppearanceYear)
+            binding.originalAppearanceYear.setText(character.originalAppearanceYear.toString())
             binding.btnAdd.setText(R.string.button_updateCharacter)
             Picasso.get().load(character.image).into(binding.characterImage)
         }
+
+        binding.btnAdd.setOnClickListener() {
+            character.name = binding.characterName.text.toString()
+            character.description = binding.description.text.toString()
+            character.originalAppearance = binding.originalAppearance.text.toString()
+            character.originalAppearanceYear = Integer.valueOf(binding.originalAppearanceYear.text.toString())
+            if (character.name.isEmpty()) {
+                Snackbar.make(it,R.string.error_fillFields, Snackbar.LENGTH_LONG)
+                    .show()
+            } else {
+                if (edit) {
+                    app.characters.update(character.copy())
+                } else {
+                    app.characters.create(character.copy())
+                }
+            }
+            i("add Button Pressed: $character")
+            setResult(RESULT_OK)
+            finish()
+        }
+
+        binding.chooseImage.setOnClickListener {
+            showImagePicker(imageIntentLauncher, this)
+        }
+
+        registerImagePickerCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,19 +93,27 @@ class CharacterActivity: AppCompatActivity()
     }
 
     private fun registerImagePickerCallback() {
-        imageIntentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        {
-            result ->
-            when(result.resultCode){
-                RESULT_OK -> {
-                    if (result.data != null) {
-                        i("Got Result ${result.data!!.data}")
-                        character.image = result.data!!.data!!
-                        Picasso.get().load(character.image).into(binding.characterImage)
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Result ${result.data!!.data}")
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            character.image = image
+
+                            Picasso.get()
+                                .load(character.image)
+                                .into(binding.characterImage)
+                            binding.chooseImage.setText(R.string.select_characterImage)
+                        } // end of if
                     }
+                    RESULT_CANCELED -> { } else -> { }
                 }
-                RESULT_CANCELED -> { } else -> { }
             }
-        }
     }
 }

@@ -3,6 +3,7 @@ package org.assignment.characterapplication.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.databinding.CardCharacterBinding
 import org.assignment.characterapplication.models.CharacterModel
 
@@ -33,7 +34,7 @@ class CharacterAdapter constructor(private var characters: List<CharacterModel>,
 
         fun bind(character: CharacterModel, listener: CharacterListener) {
             binding.name.text = character.name
-            binding.description.text = character.description
+            Picasso.get().load(character.image).into(binding.characterImage)
             binding.root.setOnClickListener { listener.onCharacterClick(character) }
         }
     }
