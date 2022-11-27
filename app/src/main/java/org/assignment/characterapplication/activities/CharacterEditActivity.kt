@@ -10,15 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
-import org.assignment.characterapplication.databinding.ActivityCharacterBinding
+import org.assignment.characterapplication.databinding.ActivityCharacterEditBinding
 import org.assignment.characterapplication.helpers.showImagePicker
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 import timber.log.Timber.i
 
-class CharacterActivity: AppCompatActivity()
+class CharacterEditActivity: AppCompatActivity()
 {
-    private lateinit var binding: ActivityCharacterBinding
+    private lateinit var binding: ActivityCharacterEditBinding
     var character = CharacterModel()
     lateinit var app: Main
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
@@ -30,9 +30,9 @@ class CharacterActivity: AppCompatActivity()
 
         var edit = false
 
-        binding = ActivityCharacterBinding.inflate(layoutInflater)
+        binding = ActivityCharacterEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = title
+        binding.toolbarAdd.title = R.string.app_editCharacterPage.toString();
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as Main
@@ -79,7 +79,7 @@ class CharacterActivity: AppCompatActivity()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_character, menu)
+        menuInflater.inflate(R.menu.menu_character_edit, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -87,6 +87,10 @@ class CharacterActivity: AppCompatActivity()
         when (item.itemId) {
             R.id.item_cancel -> {
                 finish()
+            }
+            R.id.item_delete -> {
+                //delete item from existance
+                app.characters.delete(character);
             }
         }
         return super.onOptionsItemSelected(item)

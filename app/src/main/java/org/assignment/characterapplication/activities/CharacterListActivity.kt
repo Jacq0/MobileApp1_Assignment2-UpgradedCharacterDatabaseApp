@@ -43,7 +43,7 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_add -> {
-                val launcherIntent = Intent(this, CharacterActivity::class.java)
+                val launcherIntent = Intent(this, CharacterEditActivity::class.java)
                 getResult.launch(launcherIntent)
             }
         }
@@ -61,8 +61,8 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener {
         }
 
     override fun onCharacterClick(character: CharacterModel) {
-        val launcherIntent = Intent(this, CharacterActivity::class.java)
-        launcherIntent.putExtra("character_edit", character)
+        val launcherIntent = Intent(this, CharacterPageActivity::class.java)
+        launcherIntent.putExtra("character_select", character)
         getClickResult.launch(launcherIntent)
     }
 

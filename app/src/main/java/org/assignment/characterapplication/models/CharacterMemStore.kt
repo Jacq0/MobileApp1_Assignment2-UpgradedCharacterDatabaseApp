@@ -28,6 +28,10 @@ class CharacterMemStore: CharacterInterface
         TODO("Not yet implemented")
     }
 
+    override fun delete(character: CharacterModel) {
+        TODO("Not yet implemented")
+    }
+
     private fun logAll() {
         characters.forEach { i("$it") }
     }

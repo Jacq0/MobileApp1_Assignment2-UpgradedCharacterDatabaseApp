@@ -44,8 +44,34 @@ class CharacterJSONStore(private val context: Context) : CharacterInterface {
     }
 
     override fun update(character: CharacterModel) {
-        TODO("Not yet implemented")
+        for(char in characters)
+        {
+            if(char.id == character.id)
+            {
+                char.name = character.name
+                char.description = character.description
+                char.originalAppearance = character.originalAppearance
+                char.originalAppearanceYear = character.originalAppearanceYear
+                char.image = character.image
+
+                serialize()
+            }
+        }
     }
+
+    override fun delete(character: CharacterModel)
+    {
+        for (char in characters)
+        {
+            if (char.id == character.id)
+            {
+                characters.remove(char);
+
+                serialize()
+            }
+        }
+    }
+
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(characters, listType)

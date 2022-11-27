@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.assignment.characterapplication.activities.CharacterActivity">
+    tools:context=".activities.CharacterPageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,8 +21,8 @@
             app:elevation="0dip"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarAdd"
+            <Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleTextColor="@color/black" />
@@ -44,41 +43,28 @@
                     android:id="@+id/characterImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:srcCompat="@mipmap/ic_launcher"/>
-
-                <Button
-                    android:id="@+id/chooseImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:background="@color/colourGreen"
-                    android:paddingBottom="8dp"
-                    android:paddingTop="8dp"
-                    android:text="@string/button_addImage"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"/>
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:srcCompat="@mipmap/ic_launcher" />
 
-                <EditText
-                    android:id="@+id/characterName"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                <TextView
+                    android:id="@+id/descriptionTag"
+                    android:layout_width="393dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:autofillHints=""
-                    android:hint="@string/hint_characterName"
                     android:inputType="text"
-                    android:maxLength="25"
+                    android:maxLength="50"
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="@string/hint_characterDescription"
                     android:inputType="textMultiLine"
                     android:maxLength="5000"
                     android:maxLines="5000"
@@ -86,47 +72,33 @@
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/originalAppearanceTag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="18sp" />
+
+                <TextView
                     android:id="@+id/originalAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:hint="@string/hint_originalAppearance"
-                    android:inputType="text"
-                    android:maxLength="25"
-                    android:maxLines="1"
+                    android:inputType="textMultiLine"
+                    android:maxLength="100"
+                    android:maxLines="5"
                     android:padding="8dp"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
-
-                <EditText
-                    android:id="@+id/originalAppearanceYear"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:hint="@string/hint_originalAppearanceYear"
-                    android:inputType="number"
-                    android:maxLength="4"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-
-                <Button
-                    android:id="@+id/btnAdd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:background="@color/colourPurple"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:stateListAnimator="@null"
-                    android:text="@string/button_addCharacter"
-                    android:textColor="@color/colourPurple"
-                    android:textSize="16sp" />
             </LinearLayout>
         </ScrollView>
 
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

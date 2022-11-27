@@ -6,4 +6,5 @@ interface CharacterInterface {
     fun findAll(): List<CharacterModel>
     fun create(character: CharacterModel)
     fun update(character: CharacterModel)
+    fun delete(character: CharacterModel)
 }
