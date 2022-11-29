@@ -6,4 +6,8 @@
         android:id="@+id/item_cancel"
         android:title="@string/button_back"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_edit"
+        android:title="@string/button_edit"
+        app:showAsAction="always"/>
 </menu>

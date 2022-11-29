@@ -55,8 +55,7 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener {
             ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.characters.findAll().size)
+                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.characters.findAll().size)
             }
         }
 
