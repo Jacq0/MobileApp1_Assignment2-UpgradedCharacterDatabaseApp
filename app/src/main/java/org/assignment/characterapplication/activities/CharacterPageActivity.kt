@@ -17,13 +17,13 @@ import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 
 class CharacterPageActivity : AppCompatActivity()
-
 {
     lateinit var app: Main
     private lateinit var binding: ActivityCharacterPageBinding
     var character = CharacterModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCharacterPageBinding.inflate(layoutInflater)
@@ -31,31 +31,31 @@ class CharacterPageActivity : AppCompatActivity()
 
         character = intent.extras?.getParcelable("character_select")!!
 
-        binding.toolbar.title = character.name
+        updateValues()
 
         setSupportActionBar(binding.toolbar)
 
         app = application as Main
-
-        binding.descriptionTag.setText(R.string.header_description)
-        binding.description.setText(character.description)
-        binding.originalAppearanceTag.setText(R.string.header_originalAppearance)
-        binding.originalAppearance.setText(character.originalAppearance + " (" + character.originalAppearanceYear + ")")
-        Picasso.get().load(character.image).into(binding.characterImage)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
         menuInflater.inflate(R.menu.menu_character_page, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_cancel -> {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        when (item.itemId)
+        {
+            R.id.item_cancel ->
+            {
+                setResult(RESULT_OK)
                 finish()
             }
-            R.id.item_edit -> {
+            R.id.item_edit ->
+            {
                 val launcherIntent = Intent(this, CharacterEditActivity::class.java)
                 launcherIntent.putExtra("character_edit", character)
                 getResult.launch(launcherIntent)
@@ -64,12 +64,23 @@ class CharacterPageActivity : AppCompatActivity()
         return super.onOptionsItemSelected(item)
     }
 
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.characters.findAll().size)
+    private fun updateValues()
+    {
+        binding.toolbar.title = character.name
+
+        binding.descriptionTag.setText(R.string.header_description)
+        binding.description.setText(character.description)
+        binding.originalAppearanceTag.setText(R.string.header_originalAppearance)
+        binding.originalAppearance.setText(character.originalAppearance + " (" + character.originalAppearanceYear + ")")
+        Picasso.get().load(character.image).into(binding.characterImage)
+    }
+
+    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        {
+            if (it.resultCode == Activity.RESULT_OK)
+            {
+                character = it.data!!.getParcelableExtra("char_result")!!
+                updateValues()
             }
         }
 }

@@ -23,6 +23,7 @@ class CharacterEditActivity: AppCompatActivity()
     lateinit var app: Main
     private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
     val IMAGE_REQUEST = 1
+    private var returnIntent = Intent()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -50,23 +51,30 @@ class CharacterEditActivity: AppCompatActivity()
             Picasso.get().load(character.image).into(binding.characterImage)
         }
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAdd.setOnClickListener()
+        {
             character.name = binding.characterName.text.toString()
             character.description = binding.description.text.toString()
             character.originalAppearance = binding.originalAppearance.text.toString()
             character.originalAppearanceYear = Integer.valueOf(binding.originalAppearanceYear.text.toString())
-            if (character.name.isEmpty()) {
-                Snackbar.make(it,R.string.error_fillFields, Snackbar.LENGTH_LONG)
-                    .show()
-            } else {
-                if (edit) {
+            if (character.name.isEmpty())
+            {
+                Snackbar.make(it,R.string.error_fillFields, Snackbar.LENGTH_LONG).show()
+            }
+            else
+            {
+                returnIntent.putExtra("char_result", character);
+                if (edit)
+                {
                     app.characters.update(character.copy())
-                } else {
+                }
+                else
+                {
                     app.characters.create(character.copy())
                 }
             }
-            i("add Button Pressed: $character")
-            setResult(RESULT_OK)
+            //i("add Button Pressed: $character")
+            setResult(RESULT_OK, returnIntent)
             finish()
         }
 
@@ -77,43 +85,48 @@ class CharacterEditActivity: AppCompatActivity()
         registerImagePickerCallback()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
         menuInflater.inflate(R.menu.menu_character_edit, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
         when (item.itemId) {
-            R.id.item_cancel -> {
+            R.id.item_cancel ->
+            {
                 finish()
             }
-            R.id.item_delete -> {
-                //delete item from existance
+            R.id.item_delete ->
+            {
+                //delete item from existence
                 app.characters.delete(character);
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun registerImagePickerCallback() {
-        imageIntentLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                when(result.resultCode){
-                    RESULT_OK -> {
-                        if (result.data != null) {
+    private fun registerImagePickerCallback()
+    {
+        imageIntentLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {
+            result -> when(result.resultCode)
+                {
+                    RESULT_OK ->
+                    {
+                        if (result.data != null)
+                        {
                             i("Got Result ${result.data!!.data}")
 
                             val image = result.data!!.data!!
-                            contentResolver.takePersistableUriPermission(image,
-                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            contentResolver.takePersistableUriPermission(image, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
                             character.image = image
 
-                            Picasso.get()
-                                .load(character.image)
-                                .into(binding.characterImage)
+                            Picasso.get().load(character.image).into(binding.characterImage)
                             binding.chooseImage.setText(R.string.select_characterImage)
-                        } // end of if
+                        }
                     }
                     RESULT_CANCELED -> { } else -> { }
                 }

@@ -15,8 +15,8 @@ import org.assignment.characterapplication.databinding.ActivityCharacterListBind
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
 
-class CharacterListActivity : AppCompatActivity(), CharacterListener {
-
+class CharacterListActivity : AppCompatActivity(), CharacterListener
+{
     lateinit var app: Main
     private lateinit var binding: ActivityCharacterListBinding
 
@@ -35,41 +35,45 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener {
         binding.recyclerView.adapter = CharacterAdapter(app.characters.findAll(), this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean
+    {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.item_add -> {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        when (item.itemId)
+        {
+            R.id.item_add ->
+            {
                 val launcherIntent = Intent(this, CharacterEditActivity::class.java)
-                getResult.launch(launcherIntent)
+                getAddResult.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private val getResult =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.characters.findAll().size)
-            }
-        }
-
-    override fun onCharacterClick(character: CharacterModel) {
+    override fun onCharacterClick(character: CharacterModel)
+    {
         val launcherIntent = Intent(this, CharacterPageActivity::class.java)
         launcherIntent.putExtra("character_select", character)
         getClickResult.launch(launcherIntent)
     }
 
+    private val getAddResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {
+        if (it.resultCode == Activity.RESULT_OK)
+        {
+            (binding.recyclerView.adapter)?.notifyItemRangeChanged(0,app.characters.findAll().size)
+        }
+    }
+
     private val getClickResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
     {
-        if (it.resultCode == Activity.RESULT_OK) {
-            (binding.recyclerView.adapter)?.
-            notifyItemRangeChanged(0,app.characters.findAll().size)
+        if (it.resultCode == Activity.RESULT_OK)
+        {
+            binding.recyclerView.adapter?.notifyDataSetChanged() //refresh the list
         }
     }
 }
