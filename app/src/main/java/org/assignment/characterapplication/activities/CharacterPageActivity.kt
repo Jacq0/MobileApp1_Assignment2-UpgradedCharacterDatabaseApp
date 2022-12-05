@@ -8,6 +8,8 @@ import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
 import org.assignment.characterapplication.adapters.CharacterAdapter
@@ -41,6 +43,11 @@ class CharacterPageActivity : AppCompatActivity()
     override fun onCreateOptionsMenu(menu: Menu?): Boolean
     {
         menuInflater.inflate(R.menu.menu_character_page, menu)
+        //disable edit button if user isn't the one who created
+        if(character.createdByUserID != Firebase.auth.currentUser!!.uid)
+        {
+            menu?.findItem(R.id.item_edit)?.setEnabled(false);
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

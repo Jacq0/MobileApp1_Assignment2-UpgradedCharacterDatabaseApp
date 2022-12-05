@@ -1,13 +1,14 @@
 package org.assignment.characterapplication.main
 
 import android.app.Application
+import com.google.firebase.auth.FirebaseUser
 import org.assignment.characterapplication.interfaces.CharacterInterface
 import org.assignment.characterapplication.models.CharacterJSONStore
 import org.assignment.characterapplication.models.CharacterMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 
-class Main: Application()
+abstract class Main: Application()
 {
     lateinit var characters : CharacterInterface
 

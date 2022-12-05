@@ -8,12 +8,15 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.assignment.characterapplication.R
 import org.assignment.characterapplication.adapters.CharacterAdapter
 import org.assignment.characterapplication.adapters.CharacterListener
 import org.assignment.characterapplication.databinding.ActivityCharacterListBinding
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
+import timber.log.Timber.i
 
 class CharacterListActivity : AppCompatActivity(), CharacterListener
 {
@@ -49,6 +52,11 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
             {
                 val launcherIntent = Intent(this, CharacterEditActivity::class.java)
                 getAddResult.launch(launcherIntent)
+            }
+            R.id.item_logout ->
+            {
+                Firebase.auth.signOut()
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)

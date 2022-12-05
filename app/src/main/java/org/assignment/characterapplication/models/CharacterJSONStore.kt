@@ -53,6 +53,7 @@ class CharacterJSONStore(private val context: Context) : CharacterInterface {
                 char.originalAppearance = character.originalAppearance
                 char.originalAppearanceYear = character.originalAppearanceYear
                 char.image = character.image
+                char.createdByUserID = character.createdByUserID
 
                 serialize()
             }

@@ -1,10 +1,12 @@
 package org.assignment.characterapplication.activities
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns.EMAIL_ADDRESS
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -71,12 +73,11 @@ class UserSignInUpActivity : AppCompatActivity()
                     // Sign in success, update UI with the signed-in user's information
                     i("createUserWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    enterApp(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     i("createUserWithEmail:failure" + task.exception)
                     Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
             }
         // [END create_user_with_email]
@@ -90,7 +91,7 @@ class UserSignInUpActivity : AppCompatActivity()
                     // Sign in success, update UI with the signed-in user's information
                     i("signInWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    enterApp(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     i("signInWithEmail:failure" + task.exception)
@@ -114,8 +115,18 @@ class UserSignInUpActivity : AppCompatActivity()
         // [END send_email_verification]
     }
 
-    private fun updateUI(user: FirebaseUser?)
+    private fun enterApp(user: FirebaseUser?)
     {
+        val userIntent = Intent(this, CharacterListActivity::class.java)
+        userIntent.putExtra("user_logged_in", user)
+        getResult.launch(userIntent)
+    }
 
+    private val getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+    {
+        if (it.resultCode == Activity.RESULT_OK)
+        {
+            i("Logged Out")
+        }
     }
 }

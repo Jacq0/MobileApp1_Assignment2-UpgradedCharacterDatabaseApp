@@ -8,6 +8,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
 import org.assignment.characterapplication.databinding.ActivityCharacterEditBinding
@@ -41,6 +43,7 @@ class CharacterEditActivity: AppCompatActivity()
         if(intent.hasExtra("character_edit"))
         {
             edit = true
+
             binding.toolbarAdd.title = R.string.app_editCharacterPage.toString();
             character = intent.extras?.getParcelable("character_edit")!!
             binding.characterName.setText(character.name)
@@ -57,6 +60,7 @@ class CharacterEditActivity: AppCompatActivity()
             character.description = binding.description.text.toString()
             character.originalAppearance = binding.originalAppearance.text.toString()
             character.originalAppearanceYear = Integer.valueOf(binding.originalAppearanceYear.text.toString())
+            character.createdByUserID = Firebase.auth.currentUser!!.uid
             if (character.name.isEmpty())
             {
                 Snackbar.make(it,R.string.error_fillFields, Snackbar.LENGTH_LONG).show()
