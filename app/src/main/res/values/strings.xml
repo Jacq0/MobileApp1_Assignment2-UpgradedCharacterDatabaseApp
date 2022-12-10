@@ -23,6 +23,7 @@
     <string name="hint_email">Enter Email</string>
     <string name="hint_password">Enter Password</string>
     <string name="app_signin">Welcome to the Character Database App</string>
+    <string name="button_favourite">Favourite</string>
 
     <string-array name="filter_options">
         <item>A-Z</item>

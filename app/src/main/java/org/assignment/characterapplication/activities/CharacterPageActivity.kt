@@ -3,26 +3,28 @@ package org.assignment.characterapplication.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.CompoundButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import org.assignment.characterapplication.R
-import org.assignment.characterapplication.adapters.CharacterAdapter
-import org.assignment.characterapplication.adapters.CharacterListener
 import org.assignment.characterapplication.databinding.ActivityCharacterPageBinding
 import org.assignment.characterapplication.main.Main
 import org.assignment.characterapplication.models.CharacterModel
+import timber.log.Timber.i
+
 
 class CharacterPageActivity : AppCompatActivity()
 {
     lateinit var app: Main
     private lateinit var binding: ActivityCharacterPageBinding
     var character = CharacterModel()
+    var isFavourited = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -31,6 +33,16 @@ class CharacterPageActivity : AppCompatActivity()
         binding = ActivityCharacterPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.favouriteToggle.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                updateFavouriteStatus(isChecked)
+                i("FAVOURITED")
+            } else {
+                updateFavouriteStatus(isChecked)
+                i("UNFAVOURITED")
+            }
+        }
+
         character = intent.extras?.getParcelable("character_select")!!
 
         updateValues()
@@ -38,6 +50,13 @@ class CharacterPageActivity : AppCompatActivity()
         setSupportActionBar(binding.toolbar)
 
         app = application as Main
+
+        //check if this character is favourited by the user
+        if(app.currentUser.favourites.contains(character.id))
+        {
+            isFavourited = true
+            binding.favouriteToggle.isChecked = isFavourited
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean
@@ -69,6 +88,24 @@ class CharacterPageActivity : AppCompatActivity()
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateFavouriteStatus(status: Boolean)
+    {
+        isFavourited = status
+
+        if(status && !app.currentUser.favourites.contains(character.id))
+        {
+            //add this to the users favourited list
+            app.currentUser.favourites.add(character.id)
+            app.users.update(app.currentUser)
+        }
+        if(!status && app.currentUser.favourites.contains(character.id))
+        {
+            //remove from users favourite list
+            app.currentUser.favourites.remove(character.id)
+            app.users.update(app.currentUser)
+        }
     }
 
     private fun updateValues()
