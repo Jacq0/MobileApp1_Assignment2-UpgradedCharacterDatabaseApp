@@ -8,7 +8,7 @@ import org.assignment.characterapplication.models.CharacterMemStore
 import timber.log.Timber
 import timber.log.Timber.i
 
-abstract class Main: Application()
+public class Main: Application()
 {
     lateinit var characters : CharacterInterface
 

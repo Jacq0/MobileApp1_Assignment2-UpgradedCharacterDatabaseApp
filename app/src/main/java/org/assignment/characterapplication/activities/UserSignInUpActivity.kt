@@ -127,6 +127,8 @@ class UserSignInUpActivity : AppCompatActivity()
         if (it.resultCode == Activity.RESULT_OK)
         {
             i("Logged Out")
+            binding.email.text.clear()
+            binding.password.text.clear()
         }
     }
 }

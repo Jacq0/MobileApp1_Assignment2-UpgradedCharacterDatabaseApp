@@ -23,4 +23,13 @@
     <string name="hint_email">Enter Email</string>
     <string name="hint_password">Enter Password</string>
     <string name="app_signin">Welcome to the Character Database App</string>
+
+    <string-array name="filter_options">
+        <item>A-Z</item>
+        <item>Z-A</item>
+        <item>First Appearance</item>
+        <item>Date Added</item>
+        <item>Favourites</item>
+    </string-array>
+
 </resources>

@@ -56,6 +56,7 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
             R.id.item_logout ->
             {
                 Firebase.auth.signOut()
+                setResult(RESULT_OK)
                 finish()
             }
         }
