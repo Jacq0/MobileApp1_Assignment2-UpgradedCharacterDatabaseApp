@@ -52,11 +52,11 @@ class CharacterPageActivity : AppCompatActivity()
         app = application as Main
 
         //check if this character is favourited by the user
-        if(app.currentUser.favourites.contains(character.id))
-        {
-            isFavourited = true
-            binding.favouriteToggle.isChecked = isFavourited
-        }
+        //if(app.currentUser.favourites.contains(character.id))
+        //{
+        //    isFavourited = true
+        //    binding.favouriteToggle.isChecked = isFavourited
+        //}
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean

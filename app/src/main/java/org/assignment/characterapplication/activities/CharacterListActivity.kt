@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
@@ -53,6 +54,17 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
                 val launcherIntent = Intent(this, CharacterEditActivity::class.java)
                 getAddResult.launch(launcherIntent)
             }
+            R.id.item_random ->
+            {
+                if(getRandomCharacter() != null)
+                {
+                    onCharacterClick(getRandomCharacter()!!) //get a random character from the list and take the user to the page
+                }
+                else
+                {
+                    i("No Characters Found")
+                }
+            }
             R.id.item_logout ->
             {
                 Firebase.auth.signOut()
@@ -61,6 +73,11 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun getRandomCharacter(): CharacterModel?
+    {
+        return app.characters.findAll().randomOrNull()
     }
 
     override fun onCharacterClick(character: CharacterModel)
