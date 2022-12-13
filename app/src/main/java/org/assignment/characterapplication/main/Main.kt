@@ -29,7 +29,7 @@ public class Main: Application()
         i("Character Database App Started")
     }
 
-    private fun manageUser()
+    public fun manageUser()
     {
         if(users.getUser(Firebase.auth.currentUser!!.uid) == null)
         {

@@ -34,6 +34,8 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
 
         app = application as Main
 
+        app.manageUser() //it would be better to do this in the main method, but it causes issues
+
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = CharacterAdapter(app.characters.findAll(), this)
