@@ -35,7 +35,7 @@ class CharacterEditActivity: AppCompatActivity()
 
         binding = ActivityCharacterEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbarAdd.title = R.string.button_addCharacter.toString();
+        binding.toolbarAdd.setTitle(R.string.button_addCharacter)
         setSupportActionBar(binding.toolbarAdd)
 
         app = application as Main
@@ -44,7 +44,7 @@ class CharacterEditActivity: AppCompatActivity()
         {
             edit = true
 
-            binding.toolbarAdd.title = R.string.app_editCharacterPage.toString();
+            binding.toolbarAdd.setTitle(R.string.button_edit)
             character = intent.extras?.getParcelable("character_edit")!!
             binding.characterName.setText(character.name)
             binding.description.setText(character.description)

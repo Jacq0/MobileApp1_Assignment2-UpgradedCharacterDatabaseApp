@@ -34,7 +34,7 @@ class CharacterListActivity : AppCompatActivity(), CharacterListener
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.toolbar.title = title
+        binding.toolbar.setTitle(R.string.list_title)
         setSupportActionBar(binding.toolbar)
 
         app = application as Main

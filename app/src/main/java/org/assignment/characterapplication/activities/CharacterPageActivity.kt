@@ -55,6 +55,7 @@ class CharacterPageActivity : AppCompatActivity()
         if(app.currentUser.favourites.contains(character.id))
         {
             isFavourited = true
+            binding.favouriteToggle.setText(R.string.button_unfavourite)
             binding.favouriteToggle.isChecked = isFavourited
         }
     }
@@ -97,12 +98,14 @@ class CharacterPageActivity : AppCompatActivity()
         if(status && !app.currentUser.favourites.contains(character.id))
         {
             //add this to the users favourited list
+            binding.favouriteToggle.setText(R.string.button_unfavourite)
             app.currentUser.favourites.add(character.id)
             app.users.update(app.currentUser)
         }
         if(!status && app.currentUser.favourites.contains(character.id))
         {
             //remove from users favourite list
+            binding.favouriteToggle.setText(R.string.button_favourite)
             app.currentUser.favourites.remove(character.id)
             app.users.update(app.currentUser)
         }
