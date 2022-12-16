@@ -37,6 +37,54 @@ class CharacterJSONStore(private val context: Context) : CharacterInterface {
         return characters
     }
 
+    override fun findByString(searchString: String): List<CharacterModel>
+    {
+        if(searchString.length > 0)
+        {
+            var searchedChars = mutableListOf<CharacterModel>()
+
+            for(char in characters)
+            {
+                if(char.name.lowercase().contains(searchString.lowercase()))
+                {
+                    searchedChars.add(char)
+                }
+            }
+
+            return searchedChars
+        }
+        return characters //if the string is empty we can just return all
+    }
+
+    override fun filterBy(filter: String, characters: List<CharacterModel>, user: UserModel): List<CharacterModel>
+    {
+        when(filter){
+            "No Filter" -> {
+                return characters
+            }
+            "A-Z" -> {
+                return characters.sortedBy { it.name }
+            }
+            "Z-A" -> {
+                return characters.sortedByDescending { it.name }
+            }
+            "Favourites" -> {
+                var favourites = mutableListOf<CharacterModel>()
+
+                for (c in characters)
+                {
+                    if(user.favourites.contains(c.id))
+                    {
+                        favourites.add(c)
+                    }
+                }
+
+                return favourites
+            }
+        }
+        return characters
+    }
+
     override fun create(character: CharacterModel) {
         character.id = generateRandomId()
         characters.add(character)

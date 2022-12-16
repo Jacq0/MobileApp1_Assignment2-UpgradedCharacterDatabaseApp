@@ -24,11 +24,23 @@ class CharacterMemStore: CharacterInterface
         logAll()
     }
 
+    override fun findByString(searched: String): List<CharacterModel> {
+        TODO("Not yet implemented")
+    }
+
     override fun update(character: CharacterModel) {
         TODO("Not yet implemented")
     }
 
     override fun delete(character: CharacterModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun filterBy(
+        filter: String,
+        characters: List<CharacterModel>,
+        user: UserModel
+    ): List<CharacterModel> {
         TODO("Not yet implemented")
     }
 

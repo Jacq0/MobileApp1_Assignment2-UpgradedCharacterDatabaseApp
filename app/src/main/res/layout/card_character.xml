@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/characterImage"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             tools:srcCompat="@mipmap/ic_launcher" />
 
         <TextView
@@ -25,10 +25,10 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
             android:layout_toEndOf="@+id/characterImage"
-            android:textSize="30dp"
+            android:textSize="24dp"
             tools:text="A Name" />
 
     </RelativeLayout>
